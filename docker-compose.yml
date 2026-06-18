@@ -1,0 +1,10 @@
+services:
+  workspace-gateway:
+    image: maven:3.9-eclipse-temurin-21
+    container_name: entorno_gateway
+    ports:
+      - "8080:8080"
+    command: tail -f /dev/null
+    volumes:
+      - ./codigo-fuente:/app
+    working_dir: /app

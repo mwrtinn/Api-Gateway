@@ -1,0 +1,38 @@
+server:
+  port: 8080          
+
+spring:
+  application:
+    name: ms-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true   
+      routes:
+        # --- Ruta para ms-usuario ---
+        - id: usuario-route
+          uri: lb://MS-USUARIO
+          predicates:
+            - Path=/api/usuario/**
+
+        # --- Ruta para ms-vehiculo ---
+        - id: vehiculo-route
+          uri: lb://MS-VEHICULO
+          predicates:
+            - Path=/api/vehiculo/**
+
+        # --- Ruta para ms-mascota ---
+        - id: mascota-route
+          uri: lb://MS-MASCOTA
+          predicates:
+            - Path=/api/mascota/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://172.31.XX.XX:8761/eureka/
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
