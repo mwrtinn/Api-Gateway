@@ -1,37 +1,39 @@
 server:
-  port: 8080          
+  port: 8080
 
 spring:
   application:
-    name: ms-gateway
+    name: MS-GATEWAY
   cloud:
     gateway:
       discovery:
         locator:
-          enabled: true   
+          enabled: true
       routes:
         # --- Ruta para ms-usuario ---
         - id: usuario-route
           uri: lb://MS-USUARIO
           predicates:
-            - Path=/api/usuario/**
+            - Path=/api/v1/usuarios/**
 
         # --- Ruta para ms-vehiculo ---
         - id: vehiculo-route
           uri: lb://MS-VEHICULO
           predicates:
-            - Path=/api/vehiculo/**
+            - Path=/api/v1/vehiculos/**
 
         # --- Ruta para ms-mascota ---
         - id: mascota-route
           uri: lb://MS-MASCOTA
           predicates:
-            - Path=/api/mascota/**
+            - Path=/api/v1/mascotas/**
 
 eureka:
   client:
     service-url:
-      defaultZone: http://172.31.XX.XX:8761/eureka/
+      defaultZone: http://172.31.88.139:8761/eureka/
+  instance:
+    prefer-ip-address: true
 
 logging:
   level:
